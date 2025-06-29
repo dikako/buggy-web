@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | BuggyApp</title>
+  <style>
+    body {
+      background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .github-logo {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .github-logo img {
+      width: 32px;
+      height: 32px;
+      transition: transform 0.3s;
+    }
+
+    .github-logo img:hover {
+      transform: scale(1.2);
+    }
+
+    .login-container {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #333;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #4a90e2;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4a90e2;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #357ABD;
+    }
+
+    .error {
+      color: red;
+      margin-top: -10px;
+      margin-bottom: 10px;
+      font-size: 0.9em;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 12px;
+      margin-top: 20px;
+      color: #666;
+    }
+
+    .footer-note a {
+      color: #4a90e2;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top-right GitHub logo link -->
+  <a href="https://github.com/dikako" target="_blank" class="github-logo" aria-label="GitHub Profile">
+    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v7/icons/github.svg" alt="GitHub Logo">
+  </a>
+
+  <div class="login-container">
+    <h2>Login to BuggyApp</h2>
+    <form id="loginForm">
+      <label>Username</label>
+      <input type="text" id="username" placeholder="e.g. johndoe">
+      
+      <label>Password</label>
+      <input type="password" id="password" placeholder="•••••••••••">
+
+      <div id="errorMsg" class="error"></div>
+      <button type="submit">Sign In</button>
+    </form>
+    <div class="footer-note">* This is a demo app with intentional bugs.</div>
+    <div class="footer-note">
+      🔗 Follow me:
+      <a href="https://github.com/dikako" target="_blank">GitHub</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+
+      // BUG: Should use '||' instead of '&&'
+      if (username === "" && password === "") {
+        document.getElementById("errorMsg").innerText = "Username and Password are required!";
+        return;
+      }
+
+      if (username === "admin" && password === "1234") {
+        alert("Welcome back, " + username);
+        window.location.href = "/dashboard"; // BUG: Nonexistent page
+      } else {
+        document.getElementById("errorMsg").innerText = "Something went wrong!"; // BUG: Vague error
+      }
+    });
+  </script>
+</body>
+</html>
